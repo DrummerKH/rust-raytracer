@@ -1,1 +1,1 @@
-/Users/drummer/Projects/rust/grep/target/debug/libgrep.rlib: /Users/drummer/Projects/rust/grep/src/lib.rs
+/home/drummer/Projects/rust-tut/grep/target/debug/libgrep.rlib: /home/drummer/Projects/rust-tut/grep/src/lib.rs

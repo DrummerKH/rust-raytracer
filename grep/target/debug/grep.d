@@ -1,1 +1,1 @@
-/Users/drummer/Projects/rust/grep/target/debug/grep: /Users/drummer/Projects/rust/grep/src/lib.rs /Users/drummer/Projects/rust/grep/src/main.rs
+/home/drummer/Projects/rust-tut/grep/target/debug/grep: /home/drummer/Projects/rust-tut/grep/src/lib.rs /home/drummer/Projects/rust-tut/grep/src/main.rs
