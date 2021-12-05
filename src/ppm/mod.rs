@@ -16,17 +16,20 @@ impl Ppm {
             max_color,
             width: 0,
             height: 0,
-            matrix_data: vec![Vec::new()],
+            matrix_data: Vec::new(),
             rendered_data: format!("{}\n", magic_number),
         }
     }
 
     pub fn add_pixel(&mut self, pixel: Pixel) {
-        self.get_last_row_mut().push(pixel);
+        match self.last_row_mut() {
+            Some(val) => val.push(pixel),
+            None => self.new_row(),
+        };
     }
 
-    pub fn terminate_row(&mut self) {
-        let last_len =  self.get_last_row().len() as u32;
+    pub fn new_row(&mut self) {
+        let last_len =  self.last_row().unwrap_or(&Vec::new()).len() as u32;
 
         if self.width < last_len {
             self.width = last_len;
@@ -36,8 +39,7 @@ impl Ppm {
     }
 
     pub fn render(&mut self) -> &str {
-        self.matrix_data.pop();
-        self.height = self.get_last_row().len() as u32;
+        self.height = self.last_row().unwrap().len() as u32;
         self.rendered_data += &format!("{} {}\n{}\n", self.width, self.height, self.max_color).as_str();
 
         for row in &self.matrix_data {
@@ -50,11 +52,11 @@ impl Ppm {
         &self.rendered_data
     }
 
-    fn get_last_row_mut(&mut self) ->  &mut Vec<Pixel> {
-        self.matrix_data.last_mut().expect("Matrix data cannot be empty")
+    fn last_row_mut(&mut self) ->  Option<&mut Vec<Pixel>> {
+        self.matrix_data.last_mut()
     }
 
-    fn get_last_row(&self) ->  &Vec<Pixel> {
-        self.matrix_data.last().expect("Matrix data cannot be empty")
+    fn last_row(&self) ->  Option<&Vec<Pixel>> {
+        self.matrix_data.last()
     }
 }
